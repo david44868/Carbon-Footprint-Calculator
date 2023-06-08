@@ -34,82 +34,89 @@ const CarbonFootprintForm = ({ onCalculate }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="mb-4">
-        <label className="block mb-2 text-gray-800">
+    <form onSubmit={handleSubmit} className="grid gap-4">
+      <div>
+        <label htmlFor="electricity" className="text-gray-800">
           Electricity Usage (kWh/month):
-          <input
-            className="border border-gray-300 rounded px-2 py-1 w-full"
-            type="number"
-            step="any"
-            value={electricity}
-            onChange={(e) => setElectricity(e.target.value)}
-          />
         </label>
+        <input
+          id="electricity"
+          className="border border-gray-300 rounded px-2 py-1 w-full"
+          type="number"
+          step="any"
+          value={electricity}
+          onChange={(e) => setElectricity(e.target.value)}
+        />
       </div>
-      <div className="mb-4">
-        <label className="block mb-2 text-gray-800">
+      <div>
+        <label htmlFor="naturalGas" className="text-gray-800">
           Natural Gas Usage (thousand cubic feet/month):
-          <input
-            className="border border-gray-300 rounded px-2 py-1 w-full"
-            type="number"
-            step="any"
-            value={naturalGas}
-            onChange={(e) => setNaturalGas(e.target.value)}
-          />
         </label>
+        <input
+          id="naturalGas"
+          className="border border-gray-300 rounded px-2 py-1 w-full"
+          type="number"
+          step="any"
+          value={naturalGas}
+          onChange={(e) => setNaturalGas(e.target.value)}
+        />
       </div>
-      <div className="mb-4">
-        <label className="block mb-2 text-gray-800">
+      <div>
+        <label htmlFor="fuel" className="text-gray-800">
           Fuel Usage (gallons/month):
-          <input
-            className="border border-gray-300 rounded px-2 py-1 w-full"
-            type="number"
-            step="any"
-            value={fuel}
-            onChange={(e) => setFuel(e.target.value)}
-          />
         </label>
+        <input
+          id="fuel"
+          className="border border-gray-300 rounded px-2 py-1 w-full"
+          type="number"
+          step="any"
+          value={fuel}
+          onChange={(e) => setFuel(e.target.value)}
+        />
       </div>
-      <div className="mb-4">
-        <label className="block mb-2 text-gray-800">
+      <div>
+        <label htmlFor="meals" className="text-gray-800">
           Daily Meals (number of meals/day):
-          <input
-            className="border border-gray-300 rounded px-2 py-1 w-full"
-            type="number"
-            step="any"
-            value={meals}
-            onChange={(e) => setMeals(e.target.value)}
-          />
         </label>
+        <input
+          id="meals"
+          className="border border-gray-300 rounded px-2 py-1 w-full"
+          type="number"
+          step="any"
+          value={meals}
+          onChange={(e) => setMeals(e.target.value)}
+        />
       </div>
-      <div className="mb-4">
-        <label className="block mb-2 text-gray-800">
+      <div>
+        <label htmlFor="flights" className="text-gray-800">
           Flights per Year:
-          <input
-            className="border border-gray-300 rounded px-2 py-1 w-full"
-            type="number"
-            step="any"
-            value={flights}
-            onChange={(e) => setFlights(e.target.value)}
-          />
         </label>
+        <input
+          id="flights"
+          className="border border-gray-300 rounded px-2 py-1 w-full"
+          type="number"
+          step="any"
+          value={flights}
+          onChange={(e) => setFlights(e.target.value)}
+        />
       </div>
-      <div className="mb-4">
-        <label className="block mb-2 text-gray-800">
+      <div>
+        <label htmlFor="carMileage" className="text-gray-800">
           Car Mileage per Month (miles):
-          <input
-            className="border border-gray-300 rounded px-2 py-1 w-full"
-            type="number"
-            step="any"
-            value={carMileage}
-            onChange={(e) => setCarMileage(e.target.value)}
-          />
         </label>
+        <input
+          id="carMileage"
+          className="border border-gray-300 rounded px-2 py-1 w-full"
+          type="number"
+          step="any"
+          value={carMileage}
+          onChange={(e) => setCarMileage(e.target.value)}
+        />
       </div>
       <button
         className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-        type="submit">
+        type="submit"
+      >
         Calculate
       </button>
     </form>
