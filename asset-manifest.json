@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Carbon-Footprint-Calculator/static/css/main.308e14fb.css",
+    "main.js": "/Carbon-Footprint-Calculator/static/js/main.6163abb3.js",
+    "index.html": "/Carbon-Footprint-Calculator/index.html",
+    "main.308e14fb.css.map": "/Carbon-Footprint-Calculator/static/css/main.308e14fb.css.map",
+    "main.6163abb3.js.map": "/Carbon-Footprint-Calculator/static/js/main.6163abb3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.308e14fb.css",
+    "static/js/main.6163abb3.js"
+  ]
+}
