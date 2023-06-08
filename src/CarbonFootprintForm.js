@@ -11,6 +11,9 @@ const CarbonFootprintForm = ({ onCalculate }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const carbonFootprint = calculateCarbonFootprint()
+    electricityCarbonFootprint() // API to calculate carbon produced from electricity
+    naturalGasCarbonFootprint() // API to calculate carbon produced from natural gas
+    carCarbonFootprint() // API to calculate carbon produced from miles driven
     onCalculate(carbonFootprint)
   }
 
@@ -32,6 +35,100 @@ const CarbonFootprintForm = ({ onCalculate }) => {
 
     return totalCarbonFootprint.toFixed(2)
   }
+
+  const electricityCarbonFootprint = async () => {
+    fetch('https://beta4.api.climatiq.io/estimate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer TH8632GBXQMVTHG86GSK121QHR6J'
+      },
+      body: JSON.stringify({
+        emission_factor: {
+          activity_id: "electricity-supply_grid-source_supplier_mix",
+          source: "EPA",
+          region: "US-NJ",
+          year: 2022,
+          source_lca_activity: "electricity_generation",
+          data_version: "^1"
+        },
+        parameters: {
+          energy: parseInt(electricity, 10),
+          energy_unit: 'kWh'
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  };
+
+  const carCarbonFootprint = async () => {
+    fetch('https://beta4.api.climatiq.io/estimate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer TH8632GBXQMVTHG86GSK121QHR6J'
+      },
+      body: JSON.stringify({
+        emission_factor: {
+          activity_id: "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na",
+          source: "EPA",
+          region: "US",
+          year: 2022,
+          source_lca_activity: "use_phase",
+          data_version: "^1"
+        },
+        parameters: {
+          distance: 100, // This would be how many km driven
+          distance_unit: 'km'
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  };
+
+
+  const naturalGasCarbonFootprint = async () => {
+    fetch('https://beta4.api.climatiq.io/estimate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer TH8632GBXQMVTHG86GSK121QHR6J'
+      },
+      body: JSON.stringify({
+        emission_factor: {
+          activity_id: "fuel-type_natural_gas-fuel_use_stationary_combustion",
+          source: "EPA",
+          region: "US",
+          year: 2022,
+          source_lca_activity: "fuel_combustion",
+          data_version: "^1"
+        },
+        parameters: {
+          energy: parseInt(naturalGas, 10),
+          energy_unit: 'kWh'
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit} className="grid gap-4">
