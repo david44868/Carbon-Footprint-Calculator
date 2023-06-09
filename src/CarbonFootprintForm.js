@@ -209,7 +209,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
       </div>
       <div>
         <label htmlFor="flights" className="text-gray-800">
-        Total Miles Flew Yearly:
+        Total Miles Flown Yearly:
         </label>
         <input
           id="flights"
