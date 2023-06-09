@@ -24,7 +24,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
 
   // useEffect to only run calculateCarbontFootprint() after states have been updated
   useEffect(() => {
-    if (electricityCarbon && carMileageCarbon && naturalGasCarbon) {
+    if (electricityCarbon!=="" && carMileageCarbon!=="" && naturalGasCarbon!=="") {
       calculateCarbonFootprint();
       setLoading(false);
     } else {
@@ -49,7 +49,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
       carMileageCarbon;
 
     // const totalCarbonFootprint = electricityCarbon
-    onCalculate(totalCarbonFootprint.toFixed(2));
+    onCalculate(totalCarbonFootprint.toFixed(2), electricity, naturalGas, fuel, meals, flights, carMileage);
     // return totalCarbonFootprint.toFixed(2)
   };
 
@@ -58,7 +58,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer TH8632GBXQMVTHG86GSK121QHR6J",
+        Authorization: "Bearer ETXRW9GTG64M83JNWF6QY7YKKTRF",
       },
       body: JSON.stringify({
         emission_factor: {
