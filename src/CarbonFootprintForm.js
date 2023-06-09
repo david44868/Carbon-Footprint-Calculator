@@ -7,6 +7,9 @@ const CarbonFootprintForm = ({ onCalculate }) => {
   const [meals, setMeals] = useState('')
   const [flights, setFlights] = useState('')
   const [carMileage, setCarMileage] = useState('')
+  const [electricityCarbon, setElectricityCarbon] = useState('')
+  const [carMilageCarbon, setCarMileageCarbon] = useState('')
+  const [naturalGasCarbon, setNaturalGasCarbon] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -61,6 +64,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      setElectricityCarbon(data.co2e)
     })
     .catch(error => {
       console.error(error);
@@ -84,14 +88,15 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           data_version: "^1"
         },
         parameters: {
-          distance: 100, // This would be how many km driven
-          distance_unit: 'km'
+          distance: parseInt(carMileage), // This would be how many miles driven
+          distance_unit: 'mi'
         }
       })
     })
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      setCarMileageCarbon(data.co2e)
     })
     .catch(error => {
       console.error(error);
@@ -124,6 +129,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      setNaturalGasCarbon(data.co2e)
     })
     .catch(error => {
       console.error(error);
@@ -143,6 +149,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           step="any"
           value={electricity}
           onChange={(e) => setElectricity(e.target.value)}
+          required
         />
       </div>
       <div>
@@ -156,6 +163,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           step="any"
           value={naturalGas}
           onChange={(e) => setNaturalGas(e.target.value)}
+          required
         />
       </div>
       <div>
@@ -169,6 +177,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           step="any"
           value={fuel}
           onChange={(e) => setFuel(e.target.value)}
+          required
         />
       </div>
       <div>
@@ -182,6 +191,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           step="any"
           value={meals}
           onChange={(e) => setMeals(e.target.value)}
+          required
         />
       </div>
       <div>
@@ -195,6 +205,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           step="any"
           value={flights}
           onChange={(e) => setFlights(e.target.value)}
+          required
         />
       </div>
       <div>
@@ -208,6 +219,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           step="any"
           value={carMileage}
           onChange={(e) => setCarMileage(e.target.value)}
+          required
         />
       </div>
       <button

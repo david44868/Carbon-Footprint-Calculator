@@ -29,15 +29,15 @@ const App = () => {
           <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
             <div className="bg-white rounded-lg p-6">
               <h2 className="text-lg font-bold mb-4">
-                Your Carbon Footprint: {carbonFootprint} tons CO2e
+                Your carbon footprint: {carbonFootprint} kgs CO2e
               </h2>
               <h3 className="text-lg font-bold mt-4 mb-4">
-                {carbonFootprint <= 5 && 'Your Carbon Footprint is Low'}
-                {carbonFootprint > 5 && carbonFootprint <= 10 && 'Your Carbon Footprint is Moderate'}
-                {carbonFootprint > 10 && 'Your Carbon Footprint is High'}
+                {carbonFootprint <= 5 && 'Your carbon footprint is low'}
+                {carbonFootprint > 5 && carbonFootprint <= 10 && 'Your carbon footprint is moderate'}
+                {carbonFootprint > 10 && 'Your carbon footprint is high'}
               </h3>
               <h3 className="text-lg font-bold mb-2">
-                Suggestions for Reducing Your Carbon Footprint:
+                Suggestions for reducing your carbon footprint:
               </h3>
               <Suggestions carbonFootprint={carbonFootprint} />
               <div className="flex justify-center">
