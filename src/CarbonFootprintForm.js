@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const CarbonFootprintForm = ({ onCalculate }) => {
+  const [loading, setLoading] = useState(false)
   const [electricity, setElectricity] = useState('')
   const [naturalGas, setNaturalGas] = useState('')
   const [fuel, setFuel] = useState('')
@@ -8,25 +9,38 @@ const CarbonFootprintForm = ({ onCalculate }) => {
   const [flights, setFlights] = useState('')
   const [carMileage, setCarMileage] = useState('')
   const [electricityCarbon, setElectricityCarbon] = useState('')
-  const [carMilageCarbon, setCarMileageCarbon] = useState('')
+  const [carMileageCarbon, setCarMileageCarbon] = useState('')
   const [naturalGasCarbon, setNaturalGasCarbon] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const carbonFootprint = calculateCarbonFootprint()
+    setLoading(true)
     electricityCarbonFootprint() // API to calculate carbon produced from electricity
     naturalGasCarbonFootprint() // API to calculate carbon produced from natural gas
     carCarbonFootprint() // API to calculate carbon produced from miles driven
-    onCalculate(carbonFootprint)
+    // const carbonFootprint = calculateCarbonFootprint()
+    // onCalculate(carbonFootprint)
   }
 
+  // useEffect to only run calculateCarbontFootprint() after states have been updated
+  useEffect(()=> { 
+    if(electricityCarbon
+      && carMileageCarbon
+      && naturalGasCarbon){ 
+      calculateCarbonFootprint()
+      setLoading(false)
+    } else{
+      return
+    }
+  }, [electricityCarbon, carMileageCarbon, naturalGasCarbon, loading])
+
   const calculateCarbonFootprint = () => {
-    const electricityCarbon = parseFloat(electricity) * 1.34 // Assume 1.34 lb CO2e per kWh (American customary unit)
-    const naturalGasCarbon = parseFloat(naturalGas) * 119.58 // Assume 119.58 lb CO2e per thousand cubic feet (American customary unit)
+    // const electricityCarbon = parseFloat(electricity) * 1.34 // Assume 1.34 lb CO2e per kWh (American customary unit)
+    // const naturalGasCarbon = parseFloat(naturalGas) * 119.58 // Assume 119.58 lb CO2e per thousand cubic feet (American customary unit)
     const fuelCarbon = parseFloat(fuel) * 19.64 // Assume 19.64 lb CO2e per gallon (American customary unit)
     const mealsCarbon = parseFloat(meals) * 11 // Assume 11 lb CO2e per meal
     const flightsCarbon = parseFloat(flights) * 4.62 // Assume 4.62 lb CO2e per mile (average domestic flight distance)
-    const carMileageCarbon = parseFloat(carMileage) * 0.0088 // Assume 0.0088 lb CO2e per mile
+    // const carMileageCarbon = parseFloat(carMileage) * 0.0088 // Assume 0.0088 lb CO2e per mile
 
     const totalCarbonFootprint =
       electricityCarbon +
@@ -36,15 +50,17 @@ const CarbonFootprintForm = ({ onCalculate }) => {
       flightsCarbon +
       carMileageCarbon
 
-    return totalCarbonFootprint.toFixed(2)
+    // const totalCarbonFootprint = electricityCarbon
+    onCalculate(totalCarbonFootprint.toFixed(2))
+    // return totalCarbonFootprint.toFixed(2)
   }
 
   const electricityCarbonFootprint = async () => {
-    fetch('https://beta4.api.climatiq.io/estimate', {
+    await fetch('https://beta4.api.climatiq.io/estimate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer TH8632GBXQMVTHG86GSK121QHR6J'
+        'Authorization': 'Bearer ETXRW9GTG64M83JNWF6QY7YKKTRF'
       },
       body: JSON.stringify({
         emission_factor: {
@@ -64,8 +80,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      setElectricityCarbon(data.co2e)
-    })
+      setElectricityCarbon(data.co2e)})
     .catch(error => {
       console.error(error);
     });
@@ -102,7 +117,6 @@ const CarbonFootprintForm = ({ onCalculate }) => {
       console.error(error);
     });
   };
-
 
   const naturalGasCarbonFootprint = async () => {
     fetch('https://beta4.api.climatiq.io/estimate', {
