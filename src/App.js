@@ -32,9 +32,9 @@ const App = () => {
                 Your carbon footprint: {carbonFootprint} kgs CO2e
               </h2>
               <h3 className="text-lg font-bold mt-4 mb-4">
-                {carbonFootprint <= 5 && 'Your carbon footprint is low'}
-                {carbonFootprint > 5 && carbonFootprint <= 10 && 'Your carbon footprint is moderate'}
-                {carbonFootprint > 10 && 'Your carbon footprint is high'}
+                {carbonFootprint <= 5000 && 'Your carbon footprint is low'}
+                {carbonFootprint > 5000 && carbonFootprint <= 10000 && 'Your carbon footprint is moderate'}
+                {carbonFootprint > 10000 && 'Your carbon footprint is high'}
               </h3>
               <h3 className="text-lg font-bold mb-2">
                 Suggestions for reducing your carbon footprint:
