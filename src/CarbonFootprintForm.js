@@ -64,6 +64,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      setElectricityCarbon(data.co2e)
     })
     .catch(error => {
       console.error(error);
@@ -95,6 +96,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      setCarMileageCarbon(data.co2e)
     })
     .catch(error => {
       console.error(error);
@@ -127,6 +129,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      setNaturalGasCarbon(data.co2e)
     })
     .catch(error => {
       console.error(error);
