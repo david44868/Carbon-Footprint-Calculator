@@ -7,7 +7,7 @@ const Suggestions = ({ carbonFootprint, electricity, naturalGas, fuel, meals, fl
   naturalGas > 2637 && suggestions.push('Invest in a smart thermostat, lowering the thermostat even just a couple degrees during the winter, or washing dishes and clothes with full loads only')
   fuel > 24 && suggestions.push('Consider cycling or walking for short-distance trips.')
   meals > 3 && suggestions.push('Transition to a plant-based diet or reduce food waste by planning meals and buying only what you need')
-  (meals <= 2 && meals > 0) && suggestions.push('Choose locally sourced and seasonal foods to reduce carbon emissions from transportation')
+  // (meals <= 2 && meals > 0) && suggestions.push('Choose locally sourced and seasonal foods to reduce carbon emissions from transportation')
   flights > 0 && suggestions.push('Minimize air travel and consider offsetting your emissions when you do fly.')
   carMileage > 1192 && suggestions.push('Opt for public transportation or carpooling instead of driving alone.')
   
