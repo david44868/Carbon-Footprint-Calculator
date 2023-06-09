@@ -7,7 +7,6 @@ const App = () => {
   const [carbonFootprint, setCarbonFootprint] = useState(null);
   const [electricity, setElectricity] = useState('')
   const [naturalGas, setNaturalGas] = useState('')
-  const [fuel, setFuel] = useState('')
   const [meals, setMeals] = useState('')
   const [flights, setFlights] = useState('')
   const [carMileage, setCarMileage] = useState('')
@@ -17,7 +16,6 @@ const App = () => {
     carbonFootprint,
     electricity,
     naturalGas,
-    fuel,
     meals,
     flights,
     carMileage
@@ -25,7 +23,6 @@ const App = () => {
     setCarbonFootprint(carbonFootprint);
     setElectricity(electricity);
     setNaturalGas(naturalGas);
-    setFuel(fuel);
     setMeals(meals);
     setFlights(flights);
     setCarMileage(carMileage);
@@ -95,7 +92,6 @@ const App = () => {
                     carbonFootprint={carbonFootprint}
                     electricity={electricity}
                     naturalGas={naturalGas}
-                    fuel={fuel}
                     meals={meals}
                     flights={flights}
                     carMileage={carMileage}

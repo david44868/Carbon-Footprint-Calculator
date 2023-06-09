@@ -1,14 +1,19 @@
 import React from 'react'
 
-const Suggestions = ({ carbonFootprint, electricity, naturalGas, fuel, meals, flights, carMileage }) => {
+const Suggestions = ({ carbonFootprint, electricity, naturalGas, meals, flights, carMileage }) => {
   let suggestions = []
 
+  console.log("electricity", electricity)
+  console.log("naturalGas", naturalGas)
+  console.log("meals", meals)
+  console.log("flights", flights)
+  console.log("carMileage", carMileage)
   electricity > 909 && suggestions.push('Use energy-efficient appliances and turn off lights when not in use.')
   naturalGas > 2637 && suggestions.push('Invest in a smart thermostat, lowering the thermostat even just a couple degrees during the winter, or washing dishes and clothes with full loads only')
-  fuel > 24 && suggestions.push('Consider cycling or walking for short-distance trips.')
+  // fuel > 24 && suggestions.push('Consider cycling or walking for short-distance trips.')
   meals >= 2 && suggestions.push('Transition to a plant-based diet or reduce food waste by planning meals and buying only what you need')
   // (meals <= 2 && meals > 0) && suggestions.push('Choose locally sourced and seasonal foods to reduce carbon emissions from transportation')
-  flights > 0 && suggestions.push('Minimize air travel and consider offsetting your emissions when you do fly.')
+  flights > 300 && suggestions.push('Minimize air travel and consider offsetting your emissions when you do fly.')
   carMileage > 1192 && suggestions.push('Opt for public transportation or carpooling instead of driving alone.')
   
   if (suggestions.length === 0){
