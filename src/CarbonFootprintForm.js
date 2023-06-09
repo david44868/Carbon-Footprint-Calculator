@@ -35,21 +35,20 @@ const CarbonFootprintForm = ({ onCalculate }) => {
   const calculateCarbonFootprint = () => {
     // const electricityCarbon = parseFloat(electricity) * 1.34 // Assume 1.34 lb CO2e per kWh (American customary unit)
     // const naturalGasCarbon = parseFloat(naturalGas) * 119.58 // Assume 119.58 lb CO2e per thousand cubic feet (American customary unit)
-    const fuelCarbon = parseFloat(fuel) * 19.64; // Assume 19.64 lb CO2e per gallon (American customary unit)
-    const mealsCarbon = parseFloat(meals) * 11; // Assume 11 lb CO2e per meal
-    const flightsCarbon = parseFloat(flights) * 4.62; // Assume 4.62 lb CO2e per mile (average domestic flight distance)
+    // const fuelCarbon = parseFloat(fuel) * 19.64; // Assume 19.64 lb CO2e per gallon (American customary unit)
+    const mealsCarbon = parseFloat(meals) * 3 * 30; // Assume 3 kg CO2e per meal times 30 days (month)
+    const flightsCarbon = parseFloat(flights) * 0.45 / 12; // Assume 0.45 kg CO2e per mile (average domestic flight distance)
     // const carMileageCarbon = parseFloat(carMileage) * 0.0088 // Assume 0.0088 lb CO2e per mile
 
     const totalCarbonFootprint =
       electricityCarbon +
       naturalGasCarbon +
-      fuelCarbon +
       mealsCarbon +
       flightsCarbon +
       carMileageCarbon;
 
     // const totalCarbonFootprint = electricityCarbon
-    onCalculate(totalCarbonFootprint.toFixed(2), electricity, naturalGas, fuel, meals, flights, carMileage);
+    onCalculate(totalCarbonFootprint.toFixed(2), electricity, naturalGas, meals, flights, carMileage);
     // return totalCarbonFootprint.toFixed(2)
   };
 
@@ -180,7 +179,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           required
         />
       </div>
-      <div>
+      {/* <div>
         <label htmlFor="fuel" className="text-gray-800">
           Fuel Usage (gallons/month):
         </label>
@@ -193,7 +192,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           onChange={(e) => setFuel(e.target.value)}
           required
         />
-      </div>
+      </div> */}
       <div>
         <label htmlFor="meals" className="text-gray-800">
           Daily Meals (number of meals/day):
@@ -210,7 +209,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
       </div>
       <div>
         <label htmlFor="flights" className="text-gray-800">
-          Flights per Year:
+        Total Miles Flew Yearly:
         </label>
         <input
           id="flights"
@@ -224,7 +223,7 @@ const CarbonFootprintForm = ({ onCalculate }) => {
       </div>
       <div>
         <label htmlFor="carMileage" className="text-gray-800">
-          Car Mileage per Month (miles):
+          Miles Driven per Month (miles):
         </label>
         <input
           id="carMileage"
