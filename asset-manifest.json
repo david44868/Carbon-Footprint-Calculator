@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Carbon-Footprint-Calculator/static/css/main.1285a21b.css",
-    "main.js": "/Carbon-Footprint-Calculator/static/js/main.08106201.js",
+    "main.js": "/Carbon-Footprint-Calculator/static/js/main.af465947.js",
     "static/media/carbon-footprint.png": "/Carbon-Footprint-Calculator/static/media/carbon-footprint.d144a7c0e84d98ad18fe.png",
     "index.html": "/Carbon-Footprint-Calculator/index.html",
     "main.1285a21b.css.map": "/Carbon-Footprint-Calculator/static/css/main.1285a21b.css.map",
-    "main.08106201.js.map": "/Carbon-Footprint-Calculator/static/js/main.08106201.js.map"
+    "main.af465947.js.map": "/Carbon-Footprint-Calculator/static/js/main.af465947.js.map"
   },
   "entrypoints": [
     "static/css/main.1285a21b.css",
-    "static/js/main.08106201.js"
+    "static/js/main.af465947.js"
   ]
 }
