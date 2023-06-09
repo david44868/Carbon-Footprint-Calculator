@@ -244,8 +244,13 @@ const CarbonFootprintForm = ({ onCalculate }) => {
       </button>
       {loading && (
         <div>
-          <img src="https://media.giphy.com/media/8agqybiK5LW8qrG3vJ/giphy.gif"></img>
-          <h2>Loading...</h2>
+          <img
+            className="mx-auto my-5"
+            height="128"
+            width="128"
+            src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2YwMDA2Zjc3YWI4ZTA3YTQ5ZGRmOTFkMjBhYjg5MTAwZWNmNWNlOCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/IdOj8bWbATAWZjV3ty/giphy.gif"
+          ></img>
+          <h2 className="my-5 text-center">Loading...</h2>
         </div>
       )}
     </form>
