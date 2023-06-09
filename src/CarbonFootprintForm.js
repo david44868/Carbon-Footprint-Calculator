@@ -1,45 +1,43 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 
 const CarbonFootprintForm = ({ onCalculate }) => {
-  const [loading, setLoading] = useState(false)
-  const [electricity, setElectricity] = useState('')
-  const [naturalGas, setNaturalGas] = useState('')
-  const [fuel, setFuel] = useState('')
-  const [meals, setMeals] = useState('')
-  const [flights, setFlights] = useState('')
-  const [carMileage, setCarMileage] = useState('')
-  const [electricityCarbon, setElectricityCarbon] = useState('')
-  const [carMileageCarbon, setCarMileageCarbon] = useState('')
-  const [naturalGasCarbon, setNaturalGasCarbon] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [electricity, setElectricity] = useState("");
+  const [naturalGas, setNaturalGas] = useState("");
+  const [fuel, setFuel] = useState("");
+  const [meals, setMeals] = useState("");
+  const [flights, setFlights] = useState("");
+  const [carMileage, setCarMileage] = useState("");
+  const [electricityCarbon, setElectricityCarbon] = useState("");
+  const [carMileageCarbon, setCarMileageCarbon] = useState("");
+  const [naturalGasCarbon, setNaturalGasCarbon] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    electricityCarbonFootprint() // API to calculate carbon produced from electricity
-    naturalGasCarbonFootprint() // API to calculate carbon produced from natural gas
-    carCarbonFootprint() // API to calculate carbon produced from miles driven
+    e.preventDefault();
+    setLoading(true);
+    electricityCarbonFootprint(); // API to calculate carbon produced from electricity
+    naturalGasCarbonFootprint(); // API to calculate carbon produced from natural gas
+    carCarbonFootprint(); // API to calculate carbon produced from miles driven
     // const carbonFootprint = calculateCarbonFootprint()
     // onCalculate(carbonFootprint)
-  }
+  };
 
   // useEffect to only run calculateCarbontFootprint() after states have been updated
-  useEffect(()=> { 
-    if(electricityCarbon
-      && carMileageCarbon
-      && naturalGasCarbon){ 
-      calculateCarbonFootprint()
-      setLoading(false)
-    } else{
-      return
+  useEffect(() => {
+    if (electricityCarbon && carMileageCarbon && naturalGasCarbon) {
+      calculateCarbonFootprint();
+      setLoading(false);
+    } else {
+      return;
     }
-  }, [electricityCarbon, carMileageCarbon, naturalGasCarbon, loading])
+  }, [electricityCarbon, carMileageCarbon, naturalGasCarbon, loading]);
 
   const calculateCarbonFootprint = () => {
     // const electricityCarbon = parseFloat(electricity) * 1.34 // Assume 1.34 lb CO2e per kWh (American customary unit)
     // const naturalGasCarbon = parseFloat(naturalGas) * 119.58 // Assume 119.58 lb CO2e per thousand cubic feet (American customary unit)
-    const fuelCarbon = parseFloat(fuel) * 19.64 // Assume 19.64 lb CO2e per gallon (American customary unit)
-    const mealsCarbon = parseFloat(meals) * 11 // Assume 11 lb CO2e per meal
-    const flightsCarbon = parseFloat(flights) * 4.62 // Assume 4.62 lb CO2e per mile (average domestic flight distance)
+    const fuelCarbon = parseFloat(fuel) * 19.64; // Assume 19.64 lb CO2e per gallon (American customary unit)
+    const mealsCarbon = parseFloat(meals) * 11; // Assume 11 lb CO2e per meal
+    const flightsCarbon = parseFloat(flights) * 4.62; // Assume 4.62 lb CO2e per mile (average domestic flight distance)
     // const carMileageCarbon = parseFloat(carMileage) * 0.0088 // Assume 0.0088 lb CO2e per mile
 
     const totalCarbonFootprint =
@@ -48,19 +46,19 @@ const CarbonFootprintForm = ({ onCalculate }) => {
       fuelCarbon +
       mealsCarbon +
       flightsCarbon +
-      carMileageCarbon
+      carMileageCarbon;
 
     // const totalCarbonFootprint = electricityCarbon
-    onCalculate(totalCarbonFootprint.toFixed(2))
+    onCalculate(totalCarbonFootprint.toFixed(2));
     // return totalCarbonFootprint.toFixed(2)
-  }
+  };
 
   const electricityCarbonFootprint = async () => {
-    await fetch('https://beta4.api.climatiq.io/estimate', {
-      method: 'POST',
+    await fetch("https://beta4.api.climatiq.io/estimate", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ETXRW9GTG64M83JNWF6QY7YKKTRF'
+        "Content-Type": "application/json",
+        Authorization: "Bearer TH8632GBXQMVTHG86GSK121QHR6J",
       },
       body: JSON.stringify({
         emission_factor: {
@@ -69,61 +67,63 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           region: "US-NJ",
           year: 2022,
           source_lca_activity: "electricity_generation",
-          data_version: "^1"
+          data_version: "^1",
         },
         parameters: {
           energy: parseInt(electricity, 10),
-          energy_unit: 'kWh'
-        }
-      })
+          energy_unit: "kWh",
+        },
+      }),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setElectricityCarbon(data.co2e)})
-    .catch(error => {
-      console.error(error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setElectricityCarbon(data.co2e);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const carCarbonFootprint = async () => {
-    fetch('https://beta4.api.climatiq.io/estimate', {
-      method: 'POST',
+    fetch("https://beta4.api.climatiq.io/estimate", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer TH8632GBXQMVTHG86GSK121QHR6J'
+        "Content-Type": "application/json",
+        Authorization: "Bearer TH8632GBXQMVTHG86GSK121QHR6J",
       },
       body: JSON.stringify({
         emission_factor: {
-          activity_id: "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na",
+          activity_id:
+            "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na",
           source: "EPA",
           region: "US",
           year: 2022,
           source_lca_activity: "use_phase",
-          data_version: "^1"
+          data_version: "^1",
         },
         parameters: {
           distance: parseInt(carMileage), // This would be how many miles driven
-          distance_unit: 'mi'
-        }
+          distance_unit: "mi",
+        },
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setCarMileageCarbon(data.co2e);
       })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setCarMileageCarbon(data.co2e)
-    })
-    .catch(error => {
-      console.error(error);
-    });
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const naturalGasCarbonFootprint = async () => {
-    fetch('https://beta4.api.climatiq.io/estimate', {
-      method: 'POST',
+    fetch("https://beta4.api.climatiq.io/estimate", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer TH8632GBXQMVTHG86GSK121QHR6J'
+        "Content-Type": "application/json",
+        Authorization: "Bearer TH8632GBXQMVTHG86GSK121QHR6J",
       },
       body: JSON.stringify({
         emission_factor: {
@@ -132,22 +132,22 @@ const CarbonFootprintForm = ({ onCalculate }) => {
           region: "US",
           year: 2022,
           source_lca_activity: "fuel_combustion",
-          data_version: "^1"
+          data_version: "^1",
         },
         parameters: {
           energy: parseInt(naturalGas, 10),
-          energy_unit: 'kWh'
-        }
+          energy_unit: "kWh",
+        },
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setNaturalGasCarbon(data.co2e);
       })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setNaturalGasCarbon(data.co2e)
-    })
-    .catch(error => {
-      console.error(error);
-    });
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -242,8 +242,19 @@ const CarbonFootprintForm = ({ onCalculate }) => {
       >
         Calculate
       </button>
+      {loading && (
+        <div>
+          <img
+            className="mx-auto my-5"
+            height="128"
+            width="128"
+            src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2YwMDA2Zjc3YWI4ZTA3YTQ5ZGRmOTFkMjBhYjg5MTAwZWNmNWNlOCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/IdOj8bWbATAWZjV3ty/giphy.gif"
+          ></img>
+          <h2 className="my-5 text-center">Loading...</h2>
+        </div>
+      )}
     </form>
-  )
-}
+  );
+};
 
-export default CarbonFootprintForm
+export default CarbonFootprintForm;
